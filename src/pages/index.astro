@@ -1,13 +1,21 @@
 ---
 import Button from "@components/Button.astro";
-import ShadowCard from "@components/ShadowCard.astro";
-import SmallButton from "@components/SmallButton.astro";
 import Layout from "@layouts/Layout.astro";
+import ShadowCard from "@components/ShadowCard.astro";
+import Logo from "@assets/icons/logo.svg";
+import VsPlayer from "@assets/icons/player-vs-player.svg";
+import VsCpu from "@assets/icons/player-vs-cpu.svg";
 ---
 
 <Layout>
-  <div class="grid place-items-center h-full">
-    <Button> CONTINUE GAME</Button>
-    <SmallButton>MENU</SmallButton>
+  <div class="grid place-items-center h-full bg-muted-background">
+    <ShadowCard class="flex gap-4 flex-col w-[480px]">
+      <Logo class="mb-12 mt-12 self-center" />
+      <a href="/vs">
+        <Button variant="secondary" icon={VsPlayer}> PLAY VS PLAYER </Button>
+      </a>
+      <a href="/cpu"><Button icon={VsCpu}>PLAY VS CPU</Button></a>
+      <Button variant="white" class="justify-start"> GAME RULES </Button>
+    </ShadowCard>
   </div>
 </Layout>

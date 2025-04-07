@@ -1,0 +1,23 @@
+---
+import ShadowCard from "@components/ShadowCard.astro";
+import Player1 from "@assets/icons/player-one.svg";
+import Player2 from "@assets/icons/player-two.svg";
+
+interface Props {
+  numPlayer: 1 | 2;
+}
+
+const { numPlayer } = Astro.props;
+---
+
+<ShadowCard
+  shadowClass="rounded-2xl"
+  class="relative rounded-2xl bg-white px-8 pb-6 pt-10"
+>
+  <h3 class="font-bold text-lg text-center">PLAYER {numPlayer}</h3>
+  <p class="mt-2 font-bold text-6xl text-center">12</p>
+
+  <div class="absolute top-0 left-1/2 -translate-1/2">
+    {numPlayer === 1 ? <Player1 /> : <Player2 />}
+  </div>
+</ShadowCard>
