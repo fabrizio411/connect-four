@@ -1,5 +1,13 @@
 ---
+import Button from "@components/Button.astro";
+import ShadowCard from "@components/ShadowCard.astro";
+import SmallButton from "@components/SmallButton.astro";
 import Layout from "@layouts/Layout.astro";
 ---
 
-<Layout>Index</Layout>
+<Layout>
+  <div class="grid place-items-center h-full">
+    <Button> CONTINUE GAME</Button>
+    <SmallButton>MENU</SmallButton>
+  </div>
+</Layout>

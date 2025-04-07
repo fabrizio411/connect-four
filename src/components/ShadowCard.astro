@@ -1,0 +1,22 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { twMerge } from "tailwind-merge";
+
+interface Props extends HTMLAttributes<"div"> {
+  shadowClass?: string;
+}
+
+const { shadowClass, class: className, ...attrs } = Astro.props;
+---
+
+<div class={twMerge("relative rounded-4xl top-2 left-0 bg-black", shadowClass)}>
+  <div
+    class={twMerge(
+      "relative bottom-2 left-0 bg-background border-2 border-black rounded-4xl p-8",
+      className
+    )}
+    {...attrs}
+  >
+    <slot />
+  </div>
+</div>

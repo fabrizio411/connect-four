@@ -1,0 +1,39 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { twMerge } from "tailwind-merge";
+
+interface Props extends HTMLAttributes<"button"> {
+  shadowClass?: string;
+  variant?: "primary" | "secondary" | "white";
+  icon?: any;
+}
+
+const {
+  variant = "primary",
+  icon: Icon = null,
+  shadowClass,
+  class: className,
+  ...attrs
+} = Astro.props;
+---
+
+<div
+  class={twMerge(
+    "group relative rounded-2xl top-2 left-0 bg-black hover:bg-muted-background",
+    shadowClass
+  )}
+>
+  <button
+    class={twMerge(
+      "relative bottom-2 active:bottom-0 transition-[bottom] left-0 flex items-center justify-center font-bold text-xl border-2 border-black group-hover:border-muted-background rounded-2xl py-4 px-4 cursor-pointer",
+      variant === "primary" && "bg-accent-1 text-white fill-white",
+      variant === "secondary" && "bg-accent-2 fill-black",
+      variant === "white" && "bg-white fill-black",
+      Icon !== null && "justify-between",
+      className
+    )}
+    {...attrs}
+  >
+    <slot />
+  </button>
+</div>
