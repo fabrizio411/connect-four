@@ -5,6 +5,7 @@ import ShadowCard from "@components/ShadowCard.astro";
 import Logo from "@assets/icons/logo.svg";
 import VsPlayer from "@assets/icons/player-vs-player.svg";
 import VsCpu from "@assets/icons/player-vs-cpu.svg";
+import Rules from "@components/Rules.astro";
 ---
 
 <Layout>
@@ -20,7 +21,16 @@ import VsCpu from "@assets/icons/player-vs-cpu.svg";
         <Button variant="secondary" icon={VsPlayer}> PLAY VS PLAYER </Button>
       </a>
       <a href="/cpu"><Button icon={VsCpu}>PLAY VS CPU</Button></a>
-      <Button variant="white" class="justify-start"> GAME RULES </Button>
+      <Button id="rules-open-btn" variant="white" class="justify-start">
+        GAME RULES
+      </Button>
     </ShadowCard>
   </div>
+
+  <Rules />
 </Layout>
+
+<script>
+  import { handleRules } from "@assets/js/rules";
+  handleRules();
+</script>
