@@ -8,8 +8,13 @@ import VsCpu from "@assets/icons/player-vs-cpu.svg";
 ---
 
 <Layout>
-  <div class="grid place-items-center h-full bg-muted-background">
-    <ShadowCard class="flex gap-4 flex-col w-[480px]">
+  <div
+    class="grid place-items-center h-full bg-background sm:bg-muted-background"
+  >
+    <ShadowCard
+      shadowClass="bg-transparent sm:bg-black w-full max-w-[400px]"
+      class="border-transparent sm:border-black flex gap-4 flex-col"
+    >
       <Logo class="mb-12 mt-12 self-center" />
       <a href="/vs">
         <Button variant="secondary" icon={VsPlayer}> PLAY VS PLAYER </Button>
