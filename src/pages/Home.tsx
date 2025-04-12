@@ -4,6 +4,7 @@ import Logo from "../assets/logo.svg";
 import VsPlayer from "../assets/player-vs-player.svg";
 import VsCpu from "../assets/player-vs-cpu.svg";
 import Rules from "../components/Rules";
+import { A } from "@solidjs/router";
 
 const Home = () => {
   return (
@@ -13,12 +14,12 @@ const Home = () => {
         class="border-transparent sm:border-black flex gap-4 flex-col"
       >
         <img src={Logo} alt="Logo" class="mb-12 mt-12 self-center" />
-        <a href="/vs">
+        <A href="/game/vs">
           <Button variant="secondary" icon={VsPlayer}>PLAY VS PLAYER</Button>
-        </a>
-        <a href="/cpu">
+        </A>
+        <A href="/game/cpu">
           <Button icon={VsCpu}>PLAY VS CPU</Button>
-        </a>
+        </A>
         <Rules />
       </ShadowCard>
     </div>
