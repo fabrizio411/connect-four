@@ -74,7 +74,7 @@ const Rules: Component = () => {
         </ShadowCard>
         <div
           onclick={toggleOpen}
-          class="z-10 bg-black/20 absolute h-full w-full"
+          class="z-10 bg-black/40 absolute h-full w-full"
         >
         </div>
       </div>

@@ -27,8 +27,8 @@ const Restart: Component<Props> = ({ restart }) => {
         )}
       >
         <ShadowCard
-          shadowClass="z-20 bg-transparent sm:bg-black w-full max-w-[480px]"
-          class="border-transparent sm:border-black flex gap-4 flex-col"
+          shadowClass="z-20 w-[95%] max-w-[480px]"
+          class="flex gap-4 flex-col"
         >
           <h2 class="my-10 font-bold text-6xl text-center text-white">
             PAUSE
@@ -53,7 +53,7 @@ const Restart: Component<Props> = ({ restart }) => {
 
         <div
           onclick={toggleOpen}
-          class="z-10 bg-black/20 absolute h-full w-full"
+          class="z-10 bg-black/40 absolute h-full w-full"
         >
         </div>
       </div>
