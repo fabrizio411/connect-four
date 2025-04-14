@@ -1,4 +1,4 @@
-import { Component, JSX, splitProps } from "solid-js";
+import { Component, JSX } from "solid-js";
 import { twMerge } from "tailwind-merge";
 
 import BoardBackLarge from "../assets/board-layer-black-large.svg";

@@ -7,9 +7,9 @@ import { twMerge } from "tailwind-merge";
 const Rules: Component = () => {
   const [open, setOpen] = createSignal<boolean>(false);
 
-  function toggleOpen() {
+  const toggleOpen = () => {
     setOpen((prev) => !prev);
-  }
+  };
 
   return (
     <>

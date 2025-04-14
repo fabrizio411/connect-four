@@ -7,14 +7,16 @@ import { twMerge } from "tailwind-merge";
 
 interface Props {
   restart: () => void;
+  togglePause: () => void;
 }
 
 const Restart: Component<Props> = (props) => {
   const [open, setOpen] = createSignal<boolean>(false);
 
-  function toggleOpen() {
+  const toggleOpen = () => {
     setOpen((prev) => !prev);
-  }
+    props.togglePause();
+  };
 
   return (
     <>
