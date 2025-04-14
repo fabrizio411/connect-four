@@ -1,4 +1,4 @@
-import { children, Component, JSX, splitProps } from "solid-js";
+import { Component, JSX, splitProps } from "solid-js";
 import { twMerge } from "tailwind-merge";
 
 interface Props extends JSX.HTMLAttributes<HTMLDivElement> {
@@ -6,10 +6,7 @@ interface Props extends JSX.HTMLAttributes<HTMLDivElement> {
 }
 
 const ShadowCard: Component<Props> = (props) => {
-  const safeChildren = children(() => props.children);
-
   const [local, attrs] = splitProps(props, [
-    "shadowClass",
     "class",
   ]);
 
@@ -17,7 +14,7 @@ const ShadowCard: Component<Props> = (props) => {
     <div
       class={twMerge(
         "relative rounded-4xl top-2 left-0 bg-black",
-        local.shadowClass,
+        props.shadowClass,
       )}
     >
       <div
@@ -27,7 +24,7 @@ const ShadowCard: Component<Props> = (props) => {
         )}
         {...attrs}
       >
-        {safeChildren()}
+        {props.children}
       </div>
     </div>
   );

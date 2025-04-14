@@ -1,10 +1,9 @@
-import { children, Component, JSX, splitProps } from "solid-js";
+import { Component, JSX, splitProps } from "solid-js";
 import { twMerge } from "tailwind-merge";
 
 interface Props extends JSX.HTMLAttributes<HTMLButtonElement> {}
 
 const SmallButton: Component<Props> = (props) => {
-  const safeChildren = children(() => props.children);
   const [local, attrs] = splitProps(props, ["class"]);
 
   return (
@@ -15,7 +14,7 @@ const SmallButton: Component<Props> = (props) => {
       )}
       {...attrs}
     >
-      {safeChildren()}
+      {props.children}
     </button>
   );
 };

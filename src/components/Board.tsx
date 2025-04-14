@@ -8,21 +8,20 @@ import BoardColumn from "./BoardColumn";
 
 interface Props extends JSX.HTMLAttributes<HTMLDivElement> {
   handlePlay: () => void;
+  turn: 0 | 1;
 }
 
 const Board: Component<Props> = (props) => {
-  const [local, attrs] = splitProps(props, ["handlePlay", "class"]);
-
   return (
-    <div class={twMerge("relative w-full sm:w-auto", local.class)} {...attrs}>
+    <div class={twMerge("relative w-full sm:w-auto", props.class)}>
       <div class="absolute z-20 w-full h-full bottom-10 left-0 flex px-2">
-        <BoardColumn handlePlay={local.handlePlay} />
-        <BoardColumn handlePlay={local.handlePlay} />
-        <BoardColumn handlePlay={local.handlePlay} />
-        <BoardColumn handlePlay={local.handlePlay} />
-        <BoardColumn handlePlay={local.handlePlay} />
-        <BoardColumn handlePlay={local.handlePlay} />
-        <BoardColumn handlePlay={local.handlePlay} />
+        <BoardColumn turn={props.turn} handlePlay={props.handlePlay} />
+        <BoardColumn turn={props.turn} handlePlay={props.handlePlay} />
+        <BoardColumn turn={props.turn} handlePlay={props.handlePlay} />
+        <BoardColumn turn={props.turn} handlePlay={props.handlePlay} />
+        <BoardColumn turn={props.turn} handlePlay={props.handlePlay} />
+        <BoardColumn turn={props.turn} handlePlay={props.handlePlay} />
+        <BoardColumn turn={props.turn} handlePlay={props.handlePlay} />
       </div>
 
       <img class="hidden sm:block" src={BoardBackLarge} alt="Logo" />

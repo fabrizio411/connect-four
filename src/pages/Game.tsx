@@ -23,10 +23,10 @@ const Game = () => {
 
       <div class="flex items-center w-full lg:h-auto lg:w-auto max-w-[632px] lg:max-w-none flex-col lg:flex-row gap-20 relative pb-36">
         <Score mode={params.id as Mode}>
-          <Board handlePlay={handlePlay} class="hidden lg:flex" />
+          <Board turn={turn()} handlePlay={handlePlay} class="hidden lg:flex" />
         </Score>
 
-        <Board handlePlay={handlePlay} class="lg:hidden" />
+        <Board turn={turn()} handlePlay={handlePlay} class="lg:hidden" />
 
         <div class="absolute left-1/2 -translate-x-1/2 bottom-7">
           <div class="absolute top-1/2 left-1/2 -translate-1/2 text-center">

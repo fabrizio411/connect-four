@@ -1,4 +1,4 @@
-import { children, Component, JSX, splitProps } from "solid-js";
+import { Component, JSX, Show, splitProps } from "solid-js";
 import { twMerge } from "tailwind-merge";
 
 interface Props extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -8,24 +8,18 @@ interface Props extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button: Component<Props> = (props) => {
-  const safeChildren = children(() => props.children);
-
   const [local, attrs] = splitProps(props, [
     "class",
-    "shadowClass",
-    "variant",
-    "icon",
-    "children",
   ]);
 
-  const variant = local.variant ?? "primary";
-  const icon = local.icon ?? null;
+  const variant = props.variant ?? "primary";
+  const icon = props.icon ?? null;
 
   return (
     <div
       class={twMerge(
         "group relative rounded-2xl top-2 left-0 bg-black hover:bg-muted-background",
-        local.shadowClass,
+        props.shadowClass,
       )}
     >
       <button
@@ -38,14 +32,14 @@ const Button: Component<Props> = (props) => {
         )}
         {...attrs}
       >
-        <span>{safeChildren()}</span>
-        {icon !== null && (
+        <span>{props.children}</span>
+        <Show when={icon !== null}>
           <img
             class="absolute top-1/2 -translate-y-1/2 right-3"
             src={icon}
             alt="icon"
           />
-        )}
+        </Show>
       </button>
     </div>
   );

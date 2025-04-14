@@ -22,7 +22,7 @@ const Restart: Component<Props> = (props) => {
 
       <div
         class={twMerge(
-          "z-20 w-[95%] max-w-[480px] fixed top-1/2 left-1/2 -translate-1/2 grid place-items-center transition-transform",
+          "z-50 w-[95%] max-w-[480px] fixed top-1/2 left-1/2 -translate-1/2 grid place-items-center transition-transform",
           open() ? "scale-100" : "scale-0",
         )}
       >
