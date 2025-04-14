@@ -22,12 +22,12 @@ const Restart: Component<Props> = ({ restart }) => {
 
       <div
         class={twMerge(
-          "z-20 fixed top-0 left-0 w-full h-full place-items-center",
-          open() ? "grid" : "hidden",
+          "z-20 w-[95%] max-w-[480px] fixed top-1/2 left-1/2 -translate-1/2 grid place-items-center transition-transform",
+          open() ? "scale-100" : "scale-0",
         )}
       >
         <ShadowCard
-          shadowClass="z-20 w-[95%] max-w-[480px]"
+          shadowClass="z-20 w-full"
           class="flex gap-4 flex-col"
         >
           <h2 class="my-10 font-bold text-6xl text-center text-white">
@@ -50,12 +50,14 @@ const Restart: Component<Props> = ({ restart }) => {
             <Button class="justify-center">QUIT GAME</Button>
           </A>
         </ShadowCard>
-
-        <div
-          onclick={toggleOpen}
-          class="z-10 bg-black/40 absolute h-full w-full"
-        >
-        </div>
+      </div>
+      <div
+        onclick={toggleOpen}
+        class={twMerge(
+          "z-10 bg-black/40 fixed top-0 left-0 h-full w-full",
+          open() ? "block" : "hidden",
+        )}
+      >
       </div>
     </>
   );

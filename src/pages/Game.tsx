@@ -1,12 +1,9 @@
-import { A, useParams } from "@solidjs/router";
-import SmallButton from "../components/SmallButton";
+import { useParams } from "@solidjs/router";
 
-import Logo from "../assets/logo.svg";
 import TurnRed from "../assets/turn-background-red.svg";
-import TurnYellow from "../assets/turn-background-yellow.svg";
-import Restart from "../components/Restart";
 import Score from "../components/Score";
 import Board from "../components/Board";
+import Header from "../components/Header";
 
 const Game = () => {
   const params = useParams();
@@ -14,13 +11,7 @@ const Game = () => {
 
   return (
     <div class="h-full flex flex-col items-center px-6 lg:px-0 lg:gap-0 lg:justify-between">
-      <header class="flex justify-between my-8 w-full max-w-[632px] items-center">
-        <A href="/">
-          <SmallButton>MENU</SmallButton>
-        </A>
-        <img src={Logo} alt="Logo" class="size-14" />
-        <Restart restart={() => {}} />
-      </header>
+      <Header />
 
       <div class="flex items-center w-full lg:h-auto lg:w-auto max-w-[632px] lg:max-w-none flex-col lg:flex-row gap-20 relative pb-36">
         <Score>
