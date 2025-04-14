@@ -1,9 +1,13 @@
 import { Component, JSX } from "solid-js";
 import ScoreCard from "./ScoreCard";
+import { Mode } from "../types";
 
-interface Props extends JSX.HTMLAttributes<HTMLDivElement> {}
+interface Props extends JSX.HTMLAttributes<HTMLDivElement> {
+  mode: Mode;
+}
 
 const Score: Component<Props> = ({
+  mode,
   children,
   ...attrs
 }) => {
@@ -12,9 +16,9 @@ const Score: Component<Props> = ({
       class="flex items-center gap-8 lg:gap-20 lg:mx-auto w-[95%]"
       {...attrs}
     >
-      <ScoreCard numPlayer={1} />
+      <ScoreCard mode={mode} numPlayer={1} />
       {children}
-      <ScoreCard numPlayer={2} />
+      <ScoreCard mode={mode} numPlayer={2} />
     </div>
   );
 };

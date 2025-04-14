@@ -1,8 +1,6 @@
 import { Component, JSX } from "solid-js";
 import { twMerge } from "tailwind-merge";
 
-import MarkerRed from "../assets/marker-red.svg";
-import MarkerYellow from "../assets/marker-yellow.svg";
 import BoardBackLarge from "../assets/board-layer-black-large.svg";
 import BoardFrontLarge from "../assets/board-layer-white-large.svg";
 import BoardFrontSmall from "../assets/board-layer-white-small.svg";

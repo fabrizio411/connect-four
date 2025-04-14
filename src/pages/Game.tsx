@@ -4,17 +4,17 @@ import TurnRed from "../assets/turn-background-red.svg";
 import Score from "../components/Score";
 import Board from "../components/Board";
 import Header from "../components/Header";
+import { Mode } from "../types";
 
 const Game = () => {
   const params = useParams();
-  console.log(params.id);
 
   return (
     <div class="h-full flex flex-col items-center px-6 lg:px-0 lg:gap-0 lg:justify-between">
       <Header />
 
       <div class="flex items-center w-full lg:h-auto lg:w-auto max-w-[632px] lg:max-w-none flex-col lg:flex-row gap-20 relative pb-36">
-        <Score>
+        <Score mode={params.id as Mode}>
           <Board class="hidden lg:flex" />
         </Score>
 

@@ -1,15 +1,20 @@
 import { Component } from "solid-js";
+import { twMerge } from "tailwind-merge";
+import ShadowCard from "./ShadowCard";
 import Player1 from "../assets/player-one.svg";
 import Player2 from "../assets/player-two.svg";
-import ShadowCard from "./ShadowCard";
-import { twMerge } from "tailwind-merge";
+import You from "../assets/you.svg";
+import Cpu from "../assets/cpu.svg";
+import { Mode } from "../types";
 
 interface Props {
-  numPlayer: 1 | 2;
+  numPlayer: 0 | 1 | 2;
+  mode: Mode;
 }
 
 const ScoreCard: Component<Props> = ({
   numPlayer,
+  mode,
 }) => {
   return (
     <ShadowCard
@@ -17,7 +22,9 @@ const ScoreCard: Component<Props> = ({
       class="relative rounded-2xl bg-white px-0 lg:px-8 py-4 lg:pb-6 lg:pt-10"
     >
       <h3 class="font-bold text-lg text-center text-nowrap">
-        PLAYER {numPlayer}
+        {mode === "vs"
+          ? <span>PLAYER {numPlayer}</span>
+          : <span>{numPlayer === 0 ? "CPU" : "YOU"}</span>}
       </h3>
       <p class="lg:mt-2 font-bold text-4xl lg:text-6xl text-center">12</p>
 
@@ -33,14 +40,14 @@ const ScoreCard: Component<Props> = ({
           ? (
             <img
               class="size-12 sm:size-auto"
-              src={Player1}
+              src={mode === "cpu" ? You : Player1}
               alt="Player 1 Icon"
             />
           )
           : (
             <img
               class="size-12 sm:size-auto"
-              src={Player2}
+              src={mode === "cpu" ? Cpu : Player2}
               alt="Player 2 Icon"
             />
           )}
