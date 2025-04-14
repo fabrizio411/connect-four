@@ -1,4 +1,4 @@
-import { Component, JSX } from "solid-js";
+import { Component, JSX, splitProps } from "solid-js";
 import { twMerge } from "tailwind-merge";
 
 import BoardBackLarge from "../assets/board-layer-black-large.svg";
@@ -6,19 +6,23 @@ import BoardFrontLarge from "../assets/board-layer-white-large.svg";
 import BoardFrontSmall from "../assets/board-layer-white-small.svg";
 import BoardColumn from "./BoardColumn";
 
-interface Props extends JSX.HTMLAttributes<HTMLDivElement> {}
+interface Props extends JSX.HTMLAttributes<HTMLDivElement> {
+  handlePlay: () => void;
+}
 
-const Board: Component<Props> = ({ class: className }) => {
+const Board: Component<Props> = (props) => {
+  const [local, attrs] = splitProps(props, ["handlePlay", "class"]);
+
   return (
-    <div class={twMerge("relative w-full sm:w-auto", className)}>
+    <div class={twMerge("relative w-full sm:w-auto", local.class)} {...attrs}>
       <div class="absolute z-20 w-full h-full bottom-10 left-0 flex px-2">
-        <BoardColumn />
-        <BoardColumn />
-        <BoardColumn />
-        <BoardColumn />
-        <BoardColumn />
-        <BoardColumn />
-        <BoardColumn />
+        <BoardColumn handlePlay={local.handlePlay} />
+        <BoardColumn handlePlay={local.handlePlay} />
+        <BoardColumn handlePlay={local.handlePlay} />
+        <BoardColumn handlePlay={local.handlePlay} />
+        <BoardColumn handlePlay={local.handlePlay} />
+        <BoardColumn handlePlay={local.handlePlay} />
+        <BoardColumn handlePlay={local.handlePlay} />
       </div>
 
       <img class="hidden sm:block" src={BoardBackLarge} alt="Logo" />

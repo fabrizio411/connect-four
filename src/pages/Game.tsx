@@ -1,13 +1,21 @@
+import { createSignal } from "solid-js";
 import { useParams } from "@solidjs/router";
+import { Mode } from "../types";
 
 import TurnRed from "../assets/turn-background-red.svg";
 import Score from "../components/Score";
 import Board from "../components/Board";
 import Header from "../components/Header";
-import { Mode } from "../types";
 
 const Game = () => {
   const params = useParams();
+
+  // === GAME STATES ===
+  const [turn, setTurn] = createSignal<0 | 1>(0);
+
+  function handlePlay() {
+    setTurn((prev) => prev === 0 ? 1 : 0);
+  }
 
   return (
     <div class="h-full flex flex-col items-center px-6 lg:px-0 lg:gap-0 lg:justify-between">
@@ -15,10 +23,10 @@ const Game = () => {
 
       <div class="flex items-center w-full lg:h-auto lg:w-auto max-w-[632px] lg:max-w-none flex-col lg:flex-row gap-20 relative pb-36">
         <Score mode={params.id as Mode}>
-          <Board class="hidden lg:flex" />
+          <Board handlePlay={handlePlay} class="hidden lg:flex" />
         </Score>
 
-        <Board class="lg:hidden" />
+        <Board handlePlay={handlePlay} class="lg:hidden" />
 
         <div class="absolute left-1/2 -translate-x-1/2 bottom-7">
           <div class="absolute top-1/2 left-1/2 -translate-1/2 text-center">

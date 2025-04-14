@@ -9,7 +9,7 @@ interface Props {
   restart: () => void;
 }
 
-const Restart: Component<Props> = ({ restart }) => {
+const Restart: Component<Props> = (props) => {
   const [open, setOpen] = createSignal<boolean>(false);
 
   function toggleOpen() {
@@ -40,7 +40,7 @@ const Restart: Component<Props> = ({ restart }) => {
             variant="white"
             class="justify-center"
             onclick={() => {
-              restart();
+              props.restart();
               toggleOpen();
             }}
           >
