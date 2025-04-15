@@ -54,8 +54,10 @@ const Game = () => {
       });
       setFallingPiece(null);
 
-      if (checkWin()) {
-        return updateScore();
+      if (checkWin(index)) {
+        updateScore();
+        nextRound();
+        return;
       }
 
       setTurn((prev) => (prev === 0 ? 1 : 0));
@@ -73,10 +75,13 @@ const Game = () => {
     return Math.floor(Math.random() * 7);
   };
 
-  const checkWin = () => {
-    let res = false;
-
-    return res;
+  const checkWin = (index: number) => {
+    let res = true;
+    const col = pieces()[index];
+    const piece = col[col.length - 1];
+    for (let i = 0; i < 7; i++) {
+    }
+    return true;
   };
 
   const updateScore = () => {
@@ -86,7 +91,18 @@ const Game = () => {
 
   // === RESTART ===
   const restart = () => {
-    window.location.href = `/game/${mode}`;
+    setTurn(0);
+    setPaused(false);
+    setScore1(0);
+    setScore2(0);
+    setFallingPiece(null);
+    setPieces([[], [], [], [], [], [], []]);
+  };
+
+  const nextRound = () => {
+    setTurn((prev) => (prev === 0 ? 1 : 0));
+    setFallingPiece(null);
+    setPieces([[], [], [], [], [], [], []]);
   };
 
   // === JSX ===
@@ -116,8 +132,7 @@ const Game = () => {
         <TurnCounter
           paused={paused()}
           turn={turn()}
-          toggleTurn={() => placePiece(Math.floor(Math.random() * 7))}
-          handlePlay={handlePlay}
+          play={() => placePiece(Math.floor(Math.random() * 7))}
         />
 
         <div class="bg-muted-background h-52 rounded-t-[5rem] fixed lg:absolute -z-10 bottom-0 left-1/2 -translate-x-1/2 w-full lg:max-w-[1200px]">

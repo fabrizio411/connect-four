@@ -10,8 +10,7 @@ import TurnRed from "../assets/turn-background-red.svg";
 import TurnYellow from "../assets/turn-background-yellow.svg";
 
 interface Props {
-  handlePlay: (inedx: number, e: Event) => void;
-  toggleTurn: () => void;
+  play: () => void;
   turn: 0 | 1;
   paused: boolean;
 }
@@ -27,7 +26,7 @@ const TurnCounter: Component<Props> = (props) => {
         if (props.paused) return prev;
         if (prev > 0) return prev - 1;
         clearInterval(interval);
-        props.toggleTurn(); // Cambiar turno y poner ficha
+        props.play(); // Cambiar turno y poner ficha
         return 30;
       });
     }, 1000);
