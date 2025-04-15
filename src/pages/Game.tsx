@@ -11,6 +11,8 @@ const Game = () => {
   const params = useParams();
   const mode = params.id as Mode;
 
+  const maxColLength = 6;
+
   // === GAME STATES ===
   const [turn, setTurn] = createSignal<0 | 1>(0);
   const [paused, setPaused] = createSignal<boolean>(false);
@@ -40,7 +42,7 @@ const Game = () => {
   const placePiece = (index: number) => {
     const currentColumn = pieces()[index];
     // Prevenir doble clic
-    if (currentColumn.length >= 6 || fallingPiece()) return;
+    if (currentColumn.length >= maxColLength || fallingPiece()) return;
 
     const currentPlayer = turn();
     setFallingPiece({ column: index, player: currentPlayer });
@@ -76,12 +78,64 @@ const Game = () => {
   };
 
   const checkWin = (index: number) => {
-    let res = true;
+    let limit = 4;
     const col = pieces()[index];
-    const piece = col[col.length - 1];
-    for (let i = 0; i < 7; i++) {
-    }
-    return true;
+    const rowPos = col.length - 1;
+    const row = pieces().map((col) => col[rowPos]);
+
+    const getDiag = (inverted: boolean) => {
+      const diag = [];
+      let x = index - rowPos;
+      let y = 0;
+
+      if (!inverted && x < 0) {
+        y = Math.abs(x);
+        x = 0;
+      }
+
+      if (inverted) {
+        x = index + rowPos;
+        if (x > maxColLength) {
+          y = x - maxColLength;
+          x = maxColLength;
+        }
+      }
+      console.log("----");
+      console.log(x, y);
+
+      for (let i = 0; i < maxColLength; i++) {
+        try {
+          // console.log(x + i * (inverted ? -1 : 1), y + i);
+          diag.push(pieces()[x + i * (inverted ? -1 : 1)][y + i]);
+        } catch (error) {
+          break;
+        }
+      }
+
+      console.log(diag);
+      return diag;
+    };
+
+    const checkLine = (arr: (0 | 1)[]) => {
+      let count = 0;
+
+      for (let i = 0; i < arr.length; i++) {
+        const piece = arr[i];
+        if (piece !== undefined && piece === turn()) {
+          count++;
+          if (count >= limit) break;
+        } else count = 0;
+      }
+
+      return count >= limit;
+    };
+
+    if (checkLine(col)) return true;
+    if (checkLine(row)) return true;
+    if (checkLine(getDiag(false))) return true;
+    if (checkLine(getDiag(true))) return true;
+
+    return false;
   };
 
   const updateScore = () => {
