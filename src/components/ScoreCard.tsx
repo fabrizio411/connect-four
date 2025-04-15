@@ -16,7 +16,7 @@ interface Props {
 const ScoreCard: Component<Props> = (props) => {
   return (
     <ShadowCard
-      shadowClass="rounded-2xl flex-1"
+      shadowClass="rounded-2xl flex-1 lg:w-48"
       class="relative rounded-2xl bg-white px-0 lg:px-8 py-4 lg:pb-6 lg:pt-10"
     >
       <h3 class="font-bold text-lg text-center text-nowrap">

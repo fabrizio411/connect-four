@@ -24,7 +24,7 @@ const Restart: Component<Props> = (props) => {
 
       <div
         class={twMerge(
-          "z-50 w-[95%] max-w-[480px] fixed top-1/2 left-1/2 -translate-1/2 grid place-items-center transition-transform",
+          "z-[70] w-[95%] max-w-[480px] fixed top-1/2 left-1/2 -translate-1/2 grid place-items-center transition-transform",
           open() ? "scale-100" : "scale-0",
         )}
       >
@@ -56,7 +56,7 @@ const Restart: Component<Props> = (props) => {
       <div
         onclick={toggleOpen}
         class={twMerge(
-          "z-10 bg-black/40 fixed top-0 left-0 h-full w-full",
+          "z-[65] bg-black/40 fixed top-0 left-0 h-full w-full",
           open() ? "block" : "hidden",
         )}
       >

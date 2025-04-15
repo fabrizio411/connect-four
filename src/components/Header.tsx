@@ -6,6 +6,7 @@ import Logo from "../assets/logo.svg";
 
 interface Props {
   togglePause: () => void;
+  restart: () => void;
 }
 
 const Header: Component<Props> = (props) => {
@@ -15,7 +16,7 @@ const Header: Component<Props> = (props) => {
         <SmallButton>MENU</SmallButton>
       </A>
       <img src={Logo} alt="Logo" class="size-14" />
-      <Restart togglePause={props.togglePause} restart={() => {}} />
+      <Restart togglePause={props.togglePause} restart={props.restart} />
     </header>
   );
 };

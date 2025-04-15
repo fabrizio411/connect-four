@@ -27,7 +27,7 @@ const TurnCounter: Component<Props> = (props) => {
         if (props.paused) return prev;
         if (prev > 0) return prev - 1;
         clearInterval(interval);
-        props.toggleTurn(); // Cambiar turno
+        props.toggleTurn(); // Cambiar turno y poner ficha
         return 30;
       });
     }, 1000);

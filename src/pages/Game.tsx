@@ -9,6 +9,7 @@ import TurnCounter from "../components/TurnCounter";
 
 const Game = () => {
   const params = useParams();
+  const mode = params.id as Mode;
 
   // === GAME STATES ===
   const [turn, setTurn] = createSignal<0 | 1>(0);
@@ -28,17 +29,23 @@ const Game = () => {
     [],
   ]);
 
+  // === STATE HANDLERS ===
   const togglePause = () => setPaused((prev) => !prev);
-  const toggleTurn = () => setTurn((prev) => (prev === 0 ? 1 : 0));
 
+  // === GAME LOGIC ===
   const handlePlay = (index: number, _: Event) => {
+    placePiece(index);
+  };
+
+  const placePiece = (index: number) => {
     const currentColumn = pieces()[index];
-    if (currentColumn.length >= 6 || fallingPiece()) return; // prevenir sobrellenado o doble clic
+    // Prevenir doble clic
+    if (currentColumn.length >= 6 || fallingPiece()) return;
 
     const currentPlayer = turn();
     setFallingPiece({ column: index, player: currentPlayer });
 
-    // Esperamos que la animación termine
+    // Esperar por la animacion
     setTimeout(() => {
       setPieces((prev) => {
         const newPieces = [...prev];
@@ -46,16 +53,49 @@ const Game = () => {
         return newPieces;
       });
       setFallingPiece(null);
+
+      if (checkWin()) {
+        return updateScore();
+      }
+
       setTurn((prev) => (prev === 0 ? 1 : 0));
-    }, 500); // dura lo que dura la animación
+
+      // Cpu turn handler
+      if (mode === "cpu" && turn() === 1) {
+        setTimeout(() => {
+          placePiece(getCpuChoice());
+        }, 200);
+      }
+    }, 500);
   };
 
+  const getCpuChoice = () => {
+    return Math.floor(Math.random() * 7);
+  };
+
+  const checkWin = () => {
+    let res = false;
+
+    return res;
+  };
+
+  const updateScore = () => {
+    if (turn() === 0) setScore1((prev) => prev + 1);
+    else if (turn() === 1) setScore2((prev) => prev + 1);
+  };
+
+  // === RESTART ===
+  const restart = () => {
+    window.location.href = `/game/${mode}`;
+  };
+
+  // === JSX ===
   return (
     <div class="h-full flex flex-col items-center px-6 lg:px-0 lg:gap-0 lg:justify-between">
-      <Header togglePause={togglePause} />
+      <Header restart={restart} togglePause={togglePause} />
 
       <div class="flex items-center w-full lg:h-auto lg:w-auto max-w-[632px] lg:max-w-none flex-col lg:flex-row gap-20 relative pb-36">
-        <Score score1={score1()} score2={score2()} mode={params.id as Mode}>
+        <Score score1={score1()} score2={score2()} mode={mode}>
           <Board
             fallingPiece={fallingPiece()}
             pieces={pieces()}
@@ -76,7 +116,7 @@ const Game = () => {
         <TurnCounter
           paused={paused()}
           turn={turn()}
-          toggleTurn={toggleTurn}
+          toggleTurn={() => placePiece(Math.floor(Math.random() * 7))}
           handlePlay={handlePlay}
         />
 
