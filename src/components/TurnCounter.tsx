@@ -10,7 +10,8 @@ import TurnRed from "../assets/turn-background-red.svg";
 import TurnYellow from "../assets/turn-background-yellow.svg";
 
 interface Props {
-  handlePlay: () => void;
+  handlePlay: (inedx: number, e: Event) => void;
+  toggleTurn: () => void;
   turn: 0 | 1;
   paused: boolean;
 }
@@ -26,7 +27,7 @@ const TurnCounter: Component<Props> = (props) => {
         if (props.paused) return prev;
         if (prev > 0) return prev - 1;
         clearInterval(interval);
-        props.handlePlay(); // Cambiar turno
+        props.toggleTurn(); // Cambiar turno
         return 30;
       });
     }, 1000);
@@ -47,7 +48,7 @@ const TurnCounter: Component<Props> = (props) => {
   onCleanup(() => clearInterval(interval));
 
   return (
-    <div class="absolute left-1/2 -translate-x-1/2 bottom-7">
+    <div class="absolute left-1/2 -translate-x-1/2 bottom-7 z-[60]">
       <div class="absolute top-1/2 left-1/2 -translate-1/2 text-center">
         <p class="font-medium">YOUR TURN</p>
         <h2 class="text-6xl font-bold">

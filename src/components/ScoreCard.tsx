@@ -10,6 +10,7 @@ import { Mode } from "../types";
 interface Props {
   numPlayer: 0 | 1 | 2;
   mode: Mode;
+  score: number;
 }
 
 const ScoreCard: Component<Props> = (props) => {
@@ -23,7 +24,9 @@ const ScoreCard: Component<Props> = (props) => {
           ? <span>PLAYER {props.numPlayer}</span>
           : <span>{props.numPlayer === 0 ? "CPU" : "YOU"}</span>}
       </h3>
-      <p class="lg:mt-2 font-bold text-4xl lg:text-6xl text-center">12</p>
+      <p class="lg:mt-2 font-bold text-4xl lg:text-6xl text-center">
+        {props.score}
+      </p>
 
       <div
         class={twMerge(

@@ -68,3 +68,16 @@ body {
 .animate-pop {
   animation: pop 0.4s ease-out;
 }
+
+@keyframes drop {
+  0% {
+    top: -60px;
+  }
+  100% {
+    top: var(--final-top);
+  }
+}
+
+.animate-drop {
+  animation: drop 500ms ease-in-out forwards;
+}
