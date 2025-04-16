@@ -111,7 +111,6 @@ const Game = () => {
 
       for (let i = 0; i < maxColLength; i++) {
         try {
-          // console.log(x + i * (inverted ? -1 : 1), y + i);
           diag.push(pieces()[x + i * (inverted ? -1 : 1)][y + i]);
         } catch (error) {
           break;
