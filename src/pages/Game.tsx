@@ -156,6 +156,8 @@ const Game = () => {
     setScore2(0);
     setFallingPiece(null);
     setPieces([[], [], [], [], [], [], []]);
+    setWin(null);
+    setPaused(false);
   };
 
   const handleWin = () => {
