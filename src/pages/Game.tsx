@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { createSignal, Show } from "solid-js";
 import { useParams } from "@solidjs/router";
 import { Mode } from "../types";
 
@@ -6,6 +6,9 @@ import Score from "../components/Score";
 import Board from "../components/Board";
 import Header from "../components/Header";
 import TurnCounter from "../components/TurnCounter";
+import ShadowCard from "../components/ShadowCard";
+import SmallButton from "../components/SmallButton";
+import { twMerge } from "tailwind-merge";
 
 const Game = () => {
   const params = useParams();
@@ -14,6 +17,7 @@ const Game = () => {
   const maxColLength = 6;
 
   // === GAME STATES ===
+  const [win, setWin] = createSignal<0 | 1 | null>(null);
   const [turn, setTurn] = createSignal<0 | 1>(0);
   const [paused, setPaused] = createSignal<boolean>(false);
   const [score1, setScore1] = createSignal<number>(0);
@@ -35,6 +39,7 @@ const Game = () => {
   const togglePause = () => setPaused((prev) => !prev);
 
   // === GAME LOGIC ===
+
   const handlePlay = (index: number, _: Event) => {
     placePiece(index);
   };
@@ -42,7 +47,9 @@ const Game = () => {
   const placePiece = (index: number) => {
     const currentColumn = pieces()[index];
     // Prevenir doble clic
-    if (currentColumn.length >= maxColLength || fallingPiece()) return;
+    if (currentColumn.length >= maxColLength || fallingPiece() || paused()) {
+      return;
+    }
 
     const currentPlayer = turn();
     setFallingPiece({ column: index, player: currentPlayer });
@@ -57,8 +64,7 @@ const Game = () => {
       setFallingPiece(null);
 
       if (checkWin(index)) {
-        updateScore();
-        nextRound();
+        handleWin();
         return;
       }
 
@@ -153,10 +159,18 @@ const Game = () => {
     setPieces([[], [], [], [], [], [], []]);
   };
 
+  const handleWin = () => {
+    setWin(turn());
+    setPaused(true);
+  };
+
   const nextRound = () => {
+    updateScore();
     setTurn((prev) => (prev === 0 ? 1 : 0));
     setFallingPiece(null);
     setPieces([[], [], [], [], [], [], []]);
+    setPaused(false);
+    setWin(null);
   };
 
   // === JSX ===
@@ -183,13 +197,39 @@ const Game = () => {
           class="lg:hidden"
         />
 
-        <TurnCounter
-          paused={paused()}
-          turn={turn()}
-          play={() => placePiece(Math.floor(Math.random() * 7))}
-        />
+        <Show
+          when={win() === null}
+          fallback={
+            <ShadowCard
+              shadowClass="absolute left-1/2 -translate-x-1/2 top-[80%] lg:top-[75%] z-[60] h-fit"
+              class="bg-white w-64 py-4 "
+            >
+              <div class="flex flex-col gap-2 items-center">
+                <p>
+                  {mode === "vs"
+                    ? (win() === 0 ? "Player 1" : "Player 2")
+                    : (win() === 0 ? "YOU" : "CPU")}
+                </p>
+                <h2 class="text-5xl font-bold">WINS</h2>
+                <SmallButton onclick={nextRound}>PLAY AGAIN</SmallButton>
+              </div>
+            </ShadowCard>
+          }
+        >
+          <TurnCounter
+            paused={paused()}
+            turn={turn()}
+            play={() => placePiece(Math.floor(Math.random() * 7))}
+          />
+        </Show>
 
-        <div class="bg-muted-background h-52 rounded-t-[5rem] fixed lg:absolute -z-10 bottom-0 left-1/2 -translate-x-1/2 w-full lg:max-w-[1200px]">
+        <div
+          class={twMerge(
+            "bg-muted-background h-52 rounded-t-[5rem] fixed lg:absolute -z-10 bottom-0 left-1/2 -translate-x-1/2 w-full lg:max-w-[1200px]",
+            win() === 0 && "bg-accent-1",
+            win() === 1 && "bg-accent-2",
+          )}
+        >
         </div>
       </div>
     </div>
