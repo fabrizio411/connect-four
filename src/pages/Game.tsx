@@ -9,6 +9,8 @@ import TurnCounter from "../components/TurnCounter";
 import ShadowCard from "../components/ShadowCard";
 import SmallButton from "../components/SmallButton";
 import { twMerge } from "tailwind-merge";
+import { cpuChoice } from "../libs/cpuChoice";
+import { checkWin } from "../libs/checkWin";
 
 const Game = () => {
   const params = useParams();
@@ -63,7 +65,7 @@ const Game = () => {
       });
       setFallingPiece(null);
 
-      if (checkWin(index)) {
+      if (checkWin(index, maxColLength, turn(), pieces())) {
         handleWin();
         return;
       }
@@ -73,74 +75,11 @@ const Game = () => {
       // Cpu turn handler
       if (mode === "cpu" && turn() === 1) {
         setTimeout(() => {
-          placePiece(getCpuChoice());
+          // placePiece(cpuChoice(pieces(), index, maxColLength));
+          console.log(cpuChoice(pieces(), index, maxColLength));
         }, 200);
       }
     }, 500);
-  };
-
-  const getCpuChoice = () => {
-    return Math.floor(Math.random() * 7);
-  };
-
-  const checkWin = (index: number) => {
-    let limit = 4;
-    const col = pieces()[index];
-    const rowPos = col.length - 1;
-    const row = pieces().map((col) => col[rowPos]);
-
-    const getDiag = (inverted: boolean) => {
-      const diag = [];
-      let x = index - rowPos;
-      let y = 0;
-
-      if (!inverted && x < 0) {
-        y = Math.abs(x);
-        x = 0;
-      }
-
-      if (inverted) {
-        x = index + rowPos;
-        if (x > maxColLength) {
-          y = x - maxColLength;
-          x = maxColLength;
-        }
-      }
-      console.log("----");
-      console.log(x, y);
-
-      for (let i = 0; i < maxColLength; i++) {
-        try {
-          diag.push(pieces()[x + i * (inverted ? -1 : 1)][y + i]);
-        } catch (error) {
-          break;
-        }
-      }
-
-      console.log(diag);
-      return diag;
-    };
-
-    const checkLine = (arr: (0 | 1)[]) => {
-      let count = 0;
-
-      for (let i = 0; i < arr.length; i++) {
-        const piece = arr[i];
-        if (piece !== undefined && piece === turn()) {
-          count++;
-          if (count >= limit) break;
-        } else count = 0;
-      }
-
-      return count >= limit;
-    };
-
-    if (checkLine(col)) return true;
-    if (checkLine(row)) return true;
-    if (checkLine(getDiag(false))) return true;
-    if (checkLine(getDiag(true))) return true;
-
-    return false;
   };
 
   const updateScore = () => {
@@ -197,7 +136,8 @@ const Game = () => {
           handlePlay={handlePlay}
           class="lg:hidden"
         />
-
+        {
+          /*
         <Show
           when={win() === null}
           fallback={
@@ -222,7 +162,8 @@ const Game = () => {
             turn={turn()}
             play={() => placePiece(Math.floor(Math.random() * 7))}
           />
-        </Show>
+        </Show> */
+        }
 
         <div
           class={twMerge(
